@@ -396,3 +396,4 @@ C:\Users\mancho\Documents\RoomCodeOBSThingy\obj\Debug\netstandard2.1\CodeLogThin
 C:\Users\mancho\Documents\RoomCodeOBSThingy\obj\Debug\netstandard2.1\CodeLogT.89673D22.Up2Date
 C:\Users\mancho\Documents\RoomCodeOBSThingy\obj\Debug\netstandard2.1\CodeLogThingOBS.dll
 C:\Users\mancho\Documents\RoomCodeOBSThingy\obj\Debug\netstandard2.1\CodeLogThingOBS.pdb
+C:\Users\mancho\Documents\RoomCodeOBSThingy\bin\Debug\netstandard2.1\UnityEngine.XR.LegacyInputHelpers.dll

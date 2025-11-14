@@ -1,18 +1,23 @@
 using BepInEx;
 using GorillaGameModes;
 using GorillaNetworking;
+using HarmonyLib;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR;
 using Utilla;
 using Utilla.Attributes;
 using Utilla.Models;
 using Utilla.Utils;
+using Valve.VR;
 
 namespace CodeLogThingOBS
 {
@@ -26,9 +31,9 @@ namespace CodeLogThingOBS
 	[BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
 	public class Plugin : BaseUnityPlugin
 	{
-        bool inRoom;
+        private bool hiddencode = false;
 		string actualtext = "Not Connected To Room";
-        private float timer = 0f;
+		private float timer = 0f;
 
         void Start()
 		{
@@ -61,15 +66,32 @@ namespace CodeLogThingOBS
 
 		void Update()
 		{
+
+            bool leftStickClick;
+            bool IsSteamVR = Traverse.Create(PlayFabAuthenticator.instance).Field("platform").GetValue().ToString().ToLower() == "steam";
+
+            if (IsSteamVR) { leftStickClick = SteamVR_Actions.gorillaTag_LeftJoystickClick.GetStateDown(SteamVR_Input_Sources.LeftHand); }
+            else { ControllerInputPoller.instance.leftControllerDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxisClick, out leftStickClick); }
+
+            if (leftStickClick)
+			{
+				hiddencode = !hiddencode;
+				Debug.Log(hiddencode);
+			}
+
             timer += Time.deltaTime;
 
             if (string.IsNullOrEmpty(PhotonNetwork.CurrentRoom?.Name))
             {
                 actualtext = "Not Connected To Room";
             }
-            else
-            {
+			else if (hiddencode)
+			{
                 actualtext = "Code: " + PhotonNetwork.CurrentRoom.Name + " | " + PhotonNetwork.CurrentRoom.PlayerCount + "/" + PhotonNetwork.CurrentRoom.MaxPlayers;
+            }
+			else
+            {
+                actualtext = "Code: ??? | " + PhotonNetwork.CurrentRoom.PlayerCount + "/" + PhotonNetwork.CurrentRoom.MaxPlayers;
             }
 
             if (timer >= 1f)
