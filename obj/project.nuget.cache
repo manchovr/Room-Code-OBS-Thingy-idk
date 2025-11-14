@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "d/3QMM0GTnI=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mancho\\Documents\\RoomCodeOBSThingy\\CodeLogThingOBS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mancho\\.nuget\\packages\\microsoft.netcore.platforms\\7.0.4\\microsoft.netcore.platforms.7.0.4.nupkg.sha512"
+  ],
+  "logs": []
+}
